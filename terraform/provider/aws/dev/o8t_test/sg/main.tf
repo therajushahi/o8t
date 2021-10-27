@@ -22,3 +22,14 @@ module "web_server_sg" {
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 }
+
+module "ssh_sg" {
+  source  = "terraform-aws-modules/security-group/aws//modules/ssh"
+  version = "~> 4.0"
+
+  name        = "ssh"
+  description = "ssh access"
+  vpc_id      = "vpc-0cf289ed605f23274"
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+}
