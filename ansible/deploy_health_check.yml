@@ -1,0 +1,47 @@
+---
+- name: Deploy healthcheck
+  hosts: healthcheck
+  become: true
+
+  tasks:
+
+    - name: Create a healthcheck directory if it doesn't exist
+      ansible.builtin.file:
+        path: /var/healthcheck
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: ../health_check
+        dest: /var/healthcheck
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Create a folder for printing the status
+      ansible.builtin.file:
+        path: /var/log/web-app
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    
+    - name: Ensure file exists
+      copy:
+        content: ""
+        dest: /var/log/web-app/logs.txt
+        force: no
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Creates a cron file under /etc/cron.d
+      cron:
+        name: web server status
+        minute: "5"
+        user: root
+        job: "/var/healthcheck/health_check/health_check.py"
+        cron_file: ansible_web_status_job

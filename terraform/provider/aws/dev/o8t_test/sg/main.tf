@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 module "web_server_sg" {
-  source = "terraform-aws-modules/security-group/aws//modules/http-80"
+  source = "terraform-aws-modules/security-group/aws//modules/http-5000"
   version = "4.4.0"
 
   name        = "web-server"

@@ -1,0 +1,4 @@
+---
+create_containers: 1
+default_container_name: web_app
+default_container_image: web_app:latest

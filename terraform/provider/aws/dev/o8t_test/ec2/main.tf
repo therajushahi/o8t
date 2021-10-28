@@ -22,7 +22,7 @@ module "ec2_instance" {
 
   ami                    = "ami-0d058fe428540cd89"
   instance_type          = "t2.micro"
-  key_name               = "o8t"
+  key_name               = "o8t-key"
   monitoring             = true
   vpc_security_group_ids = ["sg-0dd47857fdbfa8773", "sg-0a80d5e083aff59d8"]
   subnet_id              = "${each.value}"

@@ -1,0 +1,45 @@
+---
+- hosts: webservers
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+
+    - name: Create a webapp directory if it does not exist
+      ansible.builtin.file:
+        path: /var/webapp
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: ../flask_web
+        dest: /var/webapp
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Build an image
+      community.docker.docker_image:
+        name: web_app:latest
+        build:
+          path: /var/webapp/flask_web/
+        tag: v1
+        push: no
+        source: build
+
+    # Creates the web app container
+    - name: Start container
+      docker_container:
+        name: "{{ default_container_name }}{{ item }}"
+        recreate: yes
+        image: "{{ default_container_image }}"
+        restart_policy: always
+        expose:
+          - 5000
+        ports:
+          - "5000:5000"
+      with_sequence: count={{ create_containers }}
