@@ -96,3 +96,4 @@ On each folder path in order vpc, sg and ec2. After that run ansible in order
    ansible-playbook deploy_health_check.yaml
    curl 54.169.113.99:5000
 ```
+Done! 
