@@ -1,7 +1,7 @@
 # o8t
 # Omniscient DevOps test
 
-`Omniscient-DevOps` This project will create a new VPC and other componets included in it susch as NAT, Gateway and subnets for private and public. We will also be able to provision an EC2 for public web access on port 80.
+`Omniscient-DevOps` This project will create a new VPC and other componets included in it susch as NAT, Gateway and subnets for private and public. We will also be able to provision an EC2 for public web access on port 5000.
 Additionaly we will provision another EC2 in a private subnet that will make call to the public facing EC2 this to ensure that the public facing EC2 is up and running this will be done via bash script that will check the health each 5 min. 
 There will be a configuration to change the time it will run.
 The provisioning is done via terraform for AWS and the server configuration will be done via ansible. We will run the webservice in docker container running in the EC2.
